@@ -172,6 +172,7 @@ mail($mail,"New site at $hostname","DBNAME = $dbname DBUSERNAME = $dbusername DB
 
 print "Ret evt. vhost'en med flere domæner og reload apache\n";
 print "DBNAME = $dbname DBUSERNAME = $dbusername DBPASS = $passwd\n";
+print "echo 'DBNAME = $dbname DBUSERNAME = $dbusername DBPASS = $passwd' > /var/www/$sitename/db.txt";
 print "Sitepath: $sitepath$sitename\n";
 ?>
 
