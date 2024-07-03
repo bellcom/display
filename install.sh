@@ -1,5 +1,5 @@
 #! /bin/bash
-#/usr/bin/php /var/www/display/create_site_with_db.php
+/usr/bin/php /var/www/display/create_site_with_db.php
 rm -rf /etc/apache2/sites-enabled/000-default.conf
 systemctl restart apache2
 cd /var/www/$1
