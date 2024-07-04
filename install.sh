@@ -45,6 +45,7 @@ sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php/8.3/cl
 sed -i 's/post_max_size = 8M/post_max_size = 200M/g' /etc/php/8.3/apache/php.ini
 sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php/8.3/cli/php.ini
 apachectl graceful
+cp /var/www/display/patch/Media.php /var/www/$1/public/src/Entity/Tenant/Media.php 
 composer require predis/predis
 composer install --optimize-autoloader
 composer install
