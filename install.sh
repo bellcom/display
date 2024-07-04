@@ -52,6 +52,7 @@ composer install
 /usr/bin/php -q /var/www/$1/public/bin/console doctrine:query:sql "show tables"
 /usr/bin/php -q /var/www/$1/public/bin/console doctrine:schema:create
 /usr/bin/php -q /var/www/$1/public/bin/console cache:clear
+/usr/bin/php -q /var/www/$1/public/bin/console lexik:jwt:generate-keypair
 ls -la /var/www/$1/public/config/jwt/
 /usr/bin/php -q /var/www/$1/public/bin/console app:tenant:add
 read -p "Skriv v√rdien fra det f√rste felt du udfyldte i tenant oprettelsen og tryk enter " tenant
