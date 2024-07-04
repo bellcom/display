@@ -2,11 +2,13 @@
 /usr/bin/php /var/www/display/create_site_with_db.php $1
 rm -rf /etc/apache2/sites-enabled/000-default.conf
 systemctl restart apache2
+read -p "Tryk påenter for at forts�tte ..."
 cd /var/www/$1
 rm -rf ./public_html
 git clone https://github.com/os2display/display-api-service.git public
 apachectl graceful
 cd /var/www/$1/public
+read -p "Tryk påenter for at forts�tte ..."
 wget https://github.com/os2display/display-client/releases/download/2.0.3/display-client-2.0.3.tar.gz
 tar -xvzf display-client-2.0.3.tar.gz
 chown -R www-data: client/
@@ -15,6 +17,7 @@ cp example_config.json config.json
 chown -R www-data: config.json
 sed -i 's/os2display.example.org/'.$1.'/g' config.json
 echo $1 ' er tilføjet til config.json' 
+read -p "Tryk påenter for at forts�tte ..."
 cd /var/www/$1/public
 wget https://github.com/os2display/display-admin-client/releases/download/2.0.2/display-admin-client-2.0.2.tar.gz
 tar -xvzf display-admin-client-2.0.2.tar.gz
@@ -24,10 +27,13 @@ cp example_config.json config.json
 cp example-access-config.json access-config.json 
 chown -R www-data: config.json
 chown -R www-data: access-config.json
-echo 'Aaben filen config.json i ./admin folderen og tilret domanet' 
 cd /var/www/$1/public
 cp .env .env.local
 echo 'Aaben filen .env.local i ./public folderen og tilret redis og db connections' 
+
+sed -i 's/redis:6379/localhost:6379/g' .env.local
+echo 'Redis er tilrettet til localhost'
+read -p "Tryk påenter for at forts�tte ..."
 apachectl graceful
 composer require predis/predis
 composer install --optimize-autoloader
