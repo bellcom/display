@@ -30,10 +30,15 @@ chown -R www-data: access-config.json
 cd /var/www/$1/public
 cp .env .env.local
 echo 'Aaben filen .env.local i ./public folderen og tilret redis og db connections' 
-
-sed -i 's/redis:6379/localhost:6379/g' .env.local
-echo 'Redis er tilrettet til localhost'
+mapfile -t a < /var/www/$1/db.txt
+declare "${a[@]}"
+echo $DBNAME $DBUSERNAME $DBPASS 
+sed -i 's/db:/'$DBUSERNAME':/g' .env.local
+sed -i 's/:db@/:'$DBPASS'@/g' .env.local
+sed -i 's/db?/'$DBNAME'?/g' .env.local
 read -p "Tryk pÃ¥enter for at fortsÃtte ..."
+sed -i 's/redis:6379/localhost:6379/g' .env.local
+sed -i 's/displayapiservice.local.itkdev.dk/'.$1.'/g' .env.local
 apachectl graceful
 composer require predis/predis
 composer install --optimize-autoloader
