@@ -15,7 +15,7 @@ chown -R www-data: client/
 cd /var/www/$1/public/client
 cp example_config.json config.json
 chown -R www-data: config.json
-sed -i 's/os2display.example.org/'.$1.'/g' config.json
+sed -i 's/os2display.example.org/'$1'/g' config.json
 echo $1 ' er tilf√∏jet til config.json' 
 read -p "Tryk p√•enter for at forts√tte ..."
 cd /var/www/$1/public
@@ -33,12 +33,13 @@ echo 'Aaben filen .env.local i ./public folderen og tilret redis og db connectio
 mapfile -t a < /var/www/$1/db.txt
 declare "${a[@]}"
 echo $DBNAME $DBUSERNAME $DBPASS 
-sed -i 's/db:/'$DBUSERNAME':/g' .env.local
+sed -i 's/db:db/'$DBUSERNAME':db/g' .env.local
 sed -i 's/:db@/:'$DBPASS'@/g' .env.local
+sed -i 's/mariadb/localhost/g' .env.local
 sed -i 's/db?/'$DBNAME'?/g' .env.local
 read -p "Tryk p√•enter for at forts√tte ..."
 sed -i 's/redis:6379/localhost:6379/g' .env.local
-sed -i 's/displayapiservice.local.itkdev.dk/'.$1.'/g' .env.local
+sed -i 's/displayapiservice.local.itkdev.dk/'$1'/g' .env.local
 apachectl graceful
 composer require predis/predis
 composer install --optimize-autoloader
