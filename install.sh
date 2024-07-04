@@ -5,7 +5,7 @@ systemctl restart apache2
 IFS='.' read -r -a array <<< $1
 cd /var/www/$1
 rm -rf ./public_html
-git clone https://github.com/os2display/display-api-service.git public_html 
+git clone https://github.com/os2display/display-api-service.git public 
 apachectl graceful
 cd /var/www/$1/public
 read -p "Tryk pÃ¥enter for at fortsÃtte ..."
@@ -57,4 +57,6 @@ ls -la /var/www/$1/public/config/jwt/
 /usr/bin/php -q /var/www/$1/public/bin/console app:tenant:add
 read -p "Skriv vÃrdien fra det fÃrste felt du udfyldte i tenant oprettelsen og tryk enter " tenant
 /usr/bin/php -q /var/www/$1/public/bin/console app:user:add admin@bellcom.dk d3m0d15pl4y Admin admin $tenant
+ln -s /var/www/$1/public/admin /var/www/$1/public/public/admin
+ln -s /var/www/$1/public/client /var/www/$1/public/public/client
 chown -R www-data: /var/www/$1
