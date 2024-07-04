@@ -1,0 +1,56 @@
+<VirtualHost *:80>
+   <Directory /var/www/os2display.koege.dk>
+      AllowOverride All
+      Options FollowSymLinks
+   </Directory>
+
+   <Directory /var/www/os2display.koege.dk/public/public/admin>
+      AllowOverride None
+      Require all granted
+      FallbackResource /admin/index.html
+      php_admin_value engine off
+      DirectoryIndex index.html
+   </Directory>
+   <Directory /var/www/os2display.koege.dk/public/public/client>
+      AllowOverride None
+      Require all granted
+      FallbackResource /client/index.html
+      php_admin_value engine off
+      DirectoryIndex index.html
+   </Directory>
+   
+   <Directory /var/www/os2display.koege.dk/public/public>
+      AllowOverride None
+      Require all granted
+      FallbackResource /index.php
+      php_admin_value engine on
+      DirectoryIndex index.php
+   </Directory>
+
+   SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+
+
+   # Uncomment on test sites!!!11!!
+   #Alias /robots.txt /var/www/robots.txt
+
+   ServerAdmin domains@bellcom.dk
+   DocumentRoot /var/www/os2display.koege.dk/public/public
+   ServerName os2display.koege.dk
+   ServerAlias www.os2display.koege.dk
+
+   CustomLog /var/www/os2display.koege.dk/logs/access.log combined
+   ErrorLog /var/www/os2display.koege.dk/logs/error.log
+
+   php_admin_value open_basedir /var/www/os2display.koege.dk:/usr/share/php
+   php_value include_path .:/var/www/os2display.koege.dk
+
+   php_value log_errors 1
+   php_value html_errors 0
+   php_value display_errors 0
+   php_admin_value error_reporting 1023
+   php_value error_log /var/www/os2display.koege.dk/logs/php.log
+
+   php_value session.save_path /var/www/os2display.koege.dk/sessions
+   php_admin_value upload_tmp_dir /var/www/os2display.koege.dk/tmp
+
+</VirtualHost>

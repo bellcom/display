@@ -5,7 +5,7 @@ systemctl restart apache2
 IFS='.' read -r -a array <<< $1
 cd /var/www/$1
 rm -rf ./public_html
-git clone https://github.com/os2display/display-api-service.git public
+git clone https://github.com/os2display/display-api-service.git public_html 
 apachectl graceful
 cd /var/www/$1/public
 read -p "Tryk pÃ¥enter for at fortsÃtte ..."
