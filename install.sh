@@ -2,7 +2,7 @@
 /usr/bin/php /var/www/display/create_site_with_db.php $1
 rm -rf /etc/apache2/sites-enabled/000-default.conf
 systemctl restart apache2
-read -p "Tryk p√•enter for at forts√tte ..."
+IFS='.' read -r -a array <<< $1
 cd /var/www/$1
 rm -rf ./public_html
 git clone https://github.com/os2display/display-api-service.git public
@@ -40,6 +40,10 @@ sed -i 's/db?/'$DBNAME'?/g' .env.local
 read -p "Tryk p√•enter for at forts√tte ..."
 sed -i 's/redis:6379/localhost:6379/g' .env.local
 sed -i 's/displayapiservice.local.itkdev.dk/'$1'/g' .env.local
+sed -i 's/post_max_size = 8M/post_max_size = 200M/g' /etc/php/8.3/cli/php.ini
+sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php/8.3/cli/php.ini
+sed -i 's/post_max_size = 8M/post_max_size = 200M/g' /etc/php/8.3/apache/php.ini
+sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php/8.3/cli/php.ini
 apachectl graceful
 composer require predis/predis
 composer install --optimize-autoloader
@@ -49,6 +53,6 @@ composer install
 /usr/bin/php -q /var/www/$1/public/bin/console cache:clear
 ls -la /var/www/$1/public/config/jwt/
 /usr/bin/php -q /var/www/$1/public/bin/console app:tenant:add
-/usr/bin/php -q /var/www/$1/public/bin/console app:user:add admin@bellcom.dk d3m0d15pl4y Admin admin bellcom
-cd /var/www/$1/public
-
+read -p "Skriv v√rdien fra det f√rste felt du udfyldte i tenant oprettelsen og tryk enter " tenant
+/usr/bin/php -q /var/www/$1/public/bin/console app:user:add admin@bellcom.dk d3m0d15pl4y Admin admin $tenant
+chown -R www-data: /var/www/$1
