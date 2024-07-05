@@ -42,8 +42,8 @@ sed -i 's/redis:6379/localhost:6379/g' .env.local
 sed -i 's/displayapiservice.local.itkdev.dk/'$1'/g' .env.local
 sed -i 's/post_max_size = 8M/post_max_size = 200M/g' /etc/php/8.3/cli/php.ini
 sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php/8.3/cli/php.ini
-sed -i 's/post_max_size = 8M/post_max_size = 200M/g' /etc/php/8.3/apache/php.ini
-sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php/8.3/cli/php.ini
+sed -i 's/post_max_size = 8M/post_max_size = 200M/g' /etc/php/8.3/apache2/php.ini
+sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php/8.3/apache2/php.ini
 apachectl graceful
 cp /var/www/display/patch/Media.php /var/www/$1/public/src/Entity/Tenant/Media.php 
 composer require predis/predis
