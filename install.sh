@@ -1,4 +1,6 @@
 #! /bin/bash
+chmod a+x install_templates.sh
+chmod a+x install_layouts.sh
 /usr/bin/php /var/www/display/create_site_with_db.php $1
 rm -rf /etc/apache2/sites-enabled/000-default.conf
 systemctl restart apache2
@@ -60,3 +62,6 @@ read -p "Skriv v√rdien fra det f√rste felt du udfyldte i tenant oprettelsen og t
 ln -s /var/www/$1/public/admin /var/www/$1/public/public/admin
 ln -s /var/www/$1/public/client /var/www/$1/public/public/client
 chown -R www-data: /var/www/$1
+./install_templates.sh
+./install_layouts.sh
+
