@@ -13,8 +13,7 @@ Both should work on the Desktop versiona as well.
 - A valid dns name that points to the ip address of your server
 
 ### Installation - step 1 - Server components
-Issue the commands below and the needed server components will be installed
-
+Issue the commands below and the needed server components will be installed  
 (You can copy and paste all commands in one copy past to a terminal - they will execute after each other)
 
 ```bash
