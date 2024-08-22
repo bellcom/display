@@ -15,7 +15,7 @@ Both should work on the Desktop versiona as well.
 ### Installation - step 1
 ```bash
 sudo -s
-wget https://raw.githubusercontent.com/bellcom/display/main/setup.sh /var/
+wget -P /var/ https://raw.githubusercontent.com/bellcom/display/main/setup.sh 
 chmod a+x /var/setup.sh
 cd /var
 /setup.sh
