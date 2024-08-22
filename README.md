@@ -12,13 +12,23 @@ Both should work on the Desktop versiona as well.
 - Root or sudo access
 - A valid dns name that points to the ip address of your server
 
-### Installation - step 1
+### Installation - step 1 - Server components
+Issue the commands below and the needed server components will be installed
+
 ```bash
 sudo -s
 wget -P /var/ https://raw.githubusercontent.com/bellcom/display/main/setup.sh 
 chmod a+x /var/setup.sh
 cd /var
-/setup.sh
+./setup.sh
+```
+
+### Installation - step 2 - OS2display
+Issue the commands below to install OS2display and follow the instructions
+DB credentials are saved in /var/www/[your_domain]
+```bash
+cd /var/www/display
+./var/www/display/install.sh your-domain
 ```
 
 
