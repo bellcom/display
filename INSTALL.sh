@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 
 #---
@@ -8,9 +8,48 @@
 # Getting comand line argument no 1
 IFS='.' read -r -a array <<< $1
 
+if [ -z $1 ]; then 
+	printf "
+	No domain name given\n
+	Usage: ./INSTALL.sh your.domanin.com\n
+	For further help type ./INSTALL.sh help
+	For system info and version type ./INSTALL.sh info
+	For OS2display management type ./INSTALL.sh display\n\n"
+	exit
+fi
+if [ "$1" = "help" ]; then 
+	printf "
+	Help section\n
+	For further help type ./INSTALL.sh help
+	For system info and version type ./INSTALL.sh info
+	For OS2display management type ./INSTALL.sh display\n\n"
+	exit
+fi
+if [ "$1" = "info" ]; then 
+	printf "
+	Info section\n
+	For further help type ./INSTALL.sh help
+	For system info and version type ./INSTALL.sh info
+	For OS2display management type ./INSTALL.sh display\n\n"
+	exit
+fi
+if [ "$1" = "display" ]; then 
+	printf "
+	Display management\n
+	For further help type ./INSTALL.sh help
+	For system info and version type ./INSTALL.sh info
+	For OS2display management type ./INSTALL.sh display\n\n"
+	exit
+fi
+
+if [ "$1" = "help" ]; then 
+	printf "\n./INSTALL.sh help\n"
+	exit
+fi
+
 # Setting permissions for the template and layout scripts
-chmod a+x install_templates.sh
-chmod a+x install_layouts.sh
+chmod a+x /var/www/display/scripts/install_templates.sh
+chmod a+x /var/www/display/scripts/install_layouts.sh
 
 # Creating DB, docroot and vhost for the site
 /usr/bin/php /var/www/display/scripts/create_site_with_db.php $1
