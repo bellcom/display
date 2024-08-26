@@ -18,7 +18,8 @@ Issue the commands below and the needed server components will be installed
 
 ```bash
 sudo -s
-wget -P /var -O setup.sh https://raw.githubusercontent.com/bellcom/display/main/scripts/setup.sh 
+rm -rf /var/setup.sh
+wget -P /var https://raw.githubusercontent.com/bellcom/display/main/scripts/setup.sh 
 chmod a+x /var/setup.sh
 cd /var
 ./setup.sh
