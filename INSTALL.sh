@@ -88,6 +88,10 @@ sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php/8.3/cl
 sed -i 's/post_max_size = 8M/post_max_size = 200M/g' /etc/php/8.3/apache2/php.ini
 sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 200M/g' /etc/php/8.3/apache2/php.ini
 
+# Implementing OS2display vhost templare from /var/www/display/templates
+cp /var/www/display/templates/apache2.vhost.conf /etc/apache2/sites-available/$1.conf
+sed -i 's/DOMAIN/'$1'/g' /etc/apache2/sites-available/$1.conf
+
 # Restarting Apache webserver to load new configuration
 systemctl restart apache2
 
