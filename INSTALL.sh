@@ -71,7 +71,7 @@ if [[ $mysql == *"$check_db"* ]]; then
 fi
 
 #check_db_length=${#check_db}
-mysql_user_name_max=$check_db
+#mysql_user_name_max=$check_db
 #if [ "$check_db_length" > "16" ]
 #echo $mysql_user_name_max
 #if [ "$mysql_user_name_max" > "16" ]
@@ -102,10 +102,10 @@ rm -rf /var/www/$1/public_html
 
 # Cloning the OS2display API into ./public
 cd /var/www/$1
-git clone https://github.com/os2display/display-api-service.git public 
+git clone https://github.com/os2display/display-api-service.git public_html
 
 # Setup of the API setup
-cd /var/www/$1/public
+cd /var/www/$1/public_html
 mapfile -t a < /var/www/$1/db.txt
 declare "${a[@]}"
 cp .env .env.local
@@ -119,22 +119,22 @@ sed -i 's/redis:6379/localhost:6379/g' .env.local
 sed -i 's/displayapiservice.local.itkdev.dk/'$1'/g' .env.local
 
 # Moving install scripts
-cp /var/www/display/scripts/install_templates.sh /var/www/$1/public/
-cp /var/www/display/scripts/install_layouts.sh /var/www/$1/public/
+cp /var/www/display/scripts/install_templates.sh /var/www/$1/public_html/
+cp /var/www/display/scripts/install_layouts.sh /var/www/$1/public_html/
 
 
 #---
 # OS2display client
 #---
 
-# Cloning the OS2display client into ./public/client 
-cd /var/www/$1/public
+# Cloning the OS2display client into ./public_html/client 
+cd /var/www/$1/public_html
 wget https://github.com/os2display/display-client/releases/download/2.0.3/display-client-2.0.3.tar.gz
 tar -xvzf display-client-2.0.3.tar.gz
 chown -R www-data: client/
 
 # Setup of the client configuration
-cd /var/www/$1/public/client
+cd /var/www/$1/public_html/client
 cp example_config.json config.json
 chown -R www-data: config.json
 sed -i 's/os2display.example.org/'$1'/g' config.json
@@ -145,21 +145,21 @@ echo $1 ' Has been added to config.json'
 # OS2display sdmin client
 #---
 
-# Cloning the OS2display admin client into ./public/admin
-cd /var/www/$1/public
+# Cloning the OS2display admin client into ./public_html/admin
+cd /var/www/$1/public_html
 wget https://github.com/os2display/display-admin-client/releases/download/2.0.2/display-admin-client-2.0.2.tar.gz
 tar -xvzf display-admin-client-2.0.2.tar.gz
 chown -R www-data: admin/
 
 # Setup of the admin client configuration
-cd /var/www/$1/public/admin
+cd /var/www/$1/public_html/admin
 cp example_config.json config.json
 cp example-access-config.json access-config.json 
 chown -R www-data: config.json
 chown -R www-data: access-config.json
 
 # File that has been changed and needs a patch - planned
-cp /var/www/display/patch/Media.php /var/www/$1/public/src/Entity/Tenant/Media.php 
+cp /var/www/display/patch/Media.php /var/www/$1/public_html/src/Entity/Tenant/Media.php 
 
 # Composer install
 composer require predis/predis
@@ -170,26 +170,26 @@ composer install
 #/usr/bin/php -q /var/www/$1/public/bin/console doctrine:query:sql "show tables"
 
 # Creating Symfony DB schema via Doctrine / the console
-/usr/bin/php -q /var/www/$1/public/bin/console doctrine:schema:create
-/usr/bin/php -q /var/www/$1/public/bin/console cache:clear
+/usr/bin/php -q /var/www/$1/public_html/bin/console doctrine:schema:create
+/usr/bin/php -q /var/www/$1/public_html/bin/console cache:clear
 
 # Generating needed JWT keypair
-/usr/bin/php -q /var/www/$1/public/bin/console lexik:jwt:generate-keypair
+/usr/bin/php -q /var/www/$1/public_html/bin/console lexik:jwt:generate-keypair
 ls -la /var/www/$1/public/config/jwt/
 
 
 # Adding Tennant before creating the admin user 
-/usr/bin/php -q /var/www/$1/public/bin/console app:tenant:add
+/usr/bin/php -q /var/www/$1/public_hmtl/bin/console app:tenant:add
 read -p "Write the value from the first field in the tennant creation " tenant
-/usr/bin/php -q /var/www/$1/public/bin/console app:user:add admin@bellcom.dk d3m0d15pl4y Admin admin $tenant
+/usr/bin/php -q /var/www/$1/public_html/bin/console app:user:add admin@bellcom.dk d3m0d15pl4y Admin admin $tenant
 
 # Linking the admin and client folders into the document root. 
-ln -s /var/www/$1/public/admin /var/www/$1/public/public/admin
-ln -s /var/www/$1/public/client /var/www/$1/public/public/client
+ln -s /var/www/$1/public_html/admin /var/www/$1/public_html/public/admin
+ln -s /var/www/$1/public_html/client /var/www/$1/public_html/public/client
 
 # Running Symfony install commands for templates and layouts.
 chown -R www-data: /var/www/$1
-cd /var/www/$1/public
+cd /var/www/$1/public_html
 ./install_templates.sh
 ./install_layouts.sh
 
