@@ -47,10 +47,38 @@ if [ "$1" = "help" ]; then
 	exit
 fi
 
-# Setting permissions for the template and layout scripts
+# Setting permissions for the template and layout script
 chmod a+x /var/www/display/scripts/install_templates.sh
 chmod a+x /var/www/display/scripts/install_layouts.sh
 
+# Dropping the database if it exists
+mysql=$(mysql -u root -e 'show databases;')
+check_db=${1//./_}
+echo $check_db
+echo $mysql;
+if [[ $mysql == *"$check_db"* ]]; then
+	read -p "Database exists - Do you want to drop user and database and continue (y/n) ?" -n 1 -r
+	if [[ $REPLY =~ ^[Nn]$ ]]
+	then
+		exit
+	else
+		mysql_user_name_max=${check_db:0:15}
+		mysql -u root -D mysql -e 'DELETE from user where User = "'$mysql_user_name_max'"';
+		printf "\nUser dropped - continuing\n"
+		mysql=$(mysql -u root -e 'DROP DATABASE '$check_db';')
+		printf "\nDatabase dropped - continuing\n"
+	fi	
+fi
+
+#check_db_length=${#check_db}
+mysql_user_name_max=$check_db
+#if [ "$check_db_length" > "16" ]
+#echo $mysql_user_name_max
+#if [ "$mysql_user_name_max" > "16" ]
+#then
+#fi
+
+#echo $mysql_user_name_max
 # Creating DB, docroot and vhost for the site
 /usr/bin/php /var/www/display/scripts/create_site_with_db.php $1
 
