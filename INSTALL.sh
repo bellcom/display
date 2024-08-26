@@ -175,7 +175,7 @@ composer install
 
 # Generating needed JWT keypair
 /usr/bin/php -q /var/www/$1/public_html/bin/console lexik:jwt:generate-keypair
-ls -la /var/www/$1/public/config/jwt/
+ls -la /var/www/$1/public_html/config/jwt/
 
 
 # Adding Tennant before creating the admin user 
