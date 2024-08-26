@@ -3,7 +3,7 @@ Os2display install profile without docker
 
 Se usefull links at the buttom of the readme file. 
 
-## How to install OS2display
+## How to install OS2display (a valid domain is neede for SSL)
 This installation has been tested for Debian 12 server version and Ubuntu 24.04 server version. 
 Both should work on the Desktop versiona as well. 
 
