@@ -179,7 +179,7 @@ ls -la /var/www/$1/public_html/config/jwt/
 
 
 # Adding Tennant before creating the admin user 
-/usr/bin/php -q /var/www/$1/public_hmtl/bin/console app:tenant:add
+/usr/bin/php -q /var/www/$1/public_html/bin/console app:tenant:add
 read -p "Write the value from the first field in the tennant creation " tenant
 /usr/bin/php -q /var/www/$1/public_html/bin/console app:user:add admin@bellcom.dk d3m0d15pl4y Admin admin $tenant
 
