@@ -33,6 +33,19 @@ cd /var/www/display
 ./INSTALL.sh your-domain
 ```
 
+## Installation - step 3 - Using Letz encrypt - Certbot for SSL
+Lets encrypt needs a valid domain. As this installation does. :-)
+If you want to use certbot (recommended - but it can be blocked by your domain provider)
+To use certbot for SSL (as root)
+```bash
+certbot
+```
+
+Follow the instructions - it will fail if the domain is not valid. 
+To renew domains use 
+```bash
+certbot renew
+```
 
 ## LINKS
 Symfony for Apache configuration: https://symfony.com/doc/current/setup/web_server_configuration.html
