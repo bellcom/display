@@ -34,9 +34,10 @@ cd /var/www/display
 ```
 
 ### Installation - step 3 - Using Lets encrypt - Certbot for SSL
-Lets encrypt needs a valid domain. As this installation does. :-)
-If you want to use certbot (recommended - but it can be blocked by your domain provider)
-To use certbot for SSL (as root)
+Lets encrypt needs a valid domain. As does this installation. :-)
+Lets encrypt could be blocked by your domain owner
+To install via lets encrypt with a valid domain for your server do: 
+
 ```bash
 certbot
 ```
