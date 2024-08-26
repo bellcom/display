@@ -14,6 +14,7 @@ Both should work on the Desktop versiona as well.
 
 ### Installation - step 1 - Server components
 Issue the commands below and the needed server components will be installed  
+
 (You can copy and paste all commands - except sudo - in one copy past to a terminal - they will execute after each other)
 
 ```bash
@@ -27,6 +28,7 @@ cd /var
 
 ### Installation - step 2 - OS2display
 Issue the commands below to install OS2display and follow the instructions
+
 DB credentials are saved in /var/www/[your_domain]
 ```bash
 cd /var/www/display
@@ -35,8 +37,11 @@ cd /var/www/display
 
 ### Installation - step 3 - Using Lets encrypt - Certbot for SSL
 Lets encrypt needs a valid domain. As does this installation. :-)
+
 Lets encrypt could be blocked by your domain owner
+
 To install via lets encrypt with a valid domain for your server do (follow instructions): 
+
 
 ```bash
 certbot
