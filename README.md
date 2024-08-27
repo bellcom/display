@@ -1,6 +1,6 @@
 # OSdisplay
 Os2display install profile without docker
-If you are looking for the older (non maintained docker setup go [here](https://github.com/os2display/os2display-docker-compose)
+If you are looking for the older (debrecated) docker setup go [here](https://github.com/os2display/os2display-docker-compose)
 
 Se usefull links at the buttom of the readme file. 
 
